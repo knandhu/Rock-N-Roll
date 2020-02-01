@@ -382,7 +382,6 @@ function update() {
   if (clock.getElapsedTime() > treeReleaseInterval) {
     clock.start();
     addPathTree();
-     console.log(treeReleaseInterval);
     // if (!hasCollided) {
     //   score += 2 * treeReleaseInterval;
     //   scoreText.innerHTML = score.toString();
