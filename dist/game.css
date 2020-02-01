@@ -1,0 +1,42 @@
+#main{
+    height:auto;
+    width:auto;
+    /* background-color: lightgreen; */
+}
+
+#nav{
+    height:100px;
+    width:700px;
+    margin-left: 29%;
+    margin-right: 22%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    top:0px;
+}
+#nav #links{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    position: relative; 
+    top:95px;
+    /* color: lightslategray; */
+}
+#controls{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top:50px;
+}
+
+#canvas{
+    position: fixed;
+    top:150px;
+    left: 25%;
+}
+
+/* #score{
+    position: fixed;
+    top: 0;
+} */
