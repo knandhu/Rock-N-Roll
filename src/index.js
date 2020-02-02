@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import win_logic from './game_logic';
+const PORT = process.env.PORT || 5000;
 
 var worldRadius = 26;
 var pathAngleValues = [1.52, 1.57, 1.62];
