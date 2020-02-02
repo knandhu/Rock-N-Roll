@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import win_logic from './game_logic';
 // const PORT = process.env.PORT || 5000;
-http.createServer(onRequest).listen(process.env.PORT || 6000);
+// http.createServer(onRequest).listen(process.env.PORT || 6000);
 var worldRadius = 26;
 var pathAngleValues = [1.52, 1.57, 1.62];
 var treesPool = [];
@@ -91,7 +91,7 @@ scoreText.style.width = 100;
 scoreText.style.height = 100;
 //scoreText.style.backgroundColor = "blue";
 scoreText.innerHTML = "0";
-scoreText.style.top = 200 + "px";
+scoreText.style.top = 265 + "px";
 scoreText.style.left = 25 + "%";
 // document.body.appendChild(scoreText);
 scoreBoard.appendChild(scoreText);
@@ -390,15 +390,22 @@ function update() {
   }
   doTreeLogic();
   doExplosionLogic();
-  render();
-  if (score < 50) {
-    GameId = requestAnimationFrame(update);  
-  } else {
-    // var win = win_logic(score, GameId);
-    GameId = requestAnimationFrame(update);
-    cancelAnimationFrame(GameId);
-    alert("Winner!");
-  }
+  // var startGame = true;
+  //   var start = document.getElementById("start");
+  // start.onclick = function startAnimation() {
+  //   if(startGame) {
+  //        render();
+  //   }
+  // }
+   render();
+    if (score < 50) {
+      GameId = requestAnimationFrame(update);
+    } else {
+      GameId = requestAnimationFrame(update);
+      cancelAnimationFrame(GameId);
+      alert("Congrats! Level 1 completed!");
+    }
+
    //request next update
 }
 

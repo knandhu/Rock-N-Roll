@@ -1,12 +1,16 @@
+body{
+    background-color: rgb(161, 186, 161);
+}
+
 #main{
     height:auto;
     width:auto;
-    /* background-color: lightgreen; */
 }
+
 
 #nav{
     height:100px;
-    width:700px;
+    width:750px;
     margin-left: 29%;
     margin-right: 22%;
     display: flex;
@@ -18,12 +22,11 @@
 #nav #links{
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
     position: relative; 
     top:95px;
-    /* color: lightslategray; */
 }
 #controls{
+    /* width:400px; */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -32,11 +35,60 @@
 
 #canvas{
     position: fixed;
-    top:150px;
+    top:220px;
     left: 25%;
 }
 
-/* #score{
-    position: fixed;
-    top: 0;
-} */
+#controls #start, #controls #pause, #controls #reset {
+    position: relative;
+    top:50px;
+	text-align: center;
+	font-size: 17px;
+	font-family: 'Raleway', sans-serif;
+	color: hsl(222, 68%, 4%);
+	width: 60px;
+	height: 30px;
+    margin-right: 15px;
+
+	border-radius: 10px;
+
+	box-shadow: 
+		0px 0px 0px 7px hsl(115, 63%, 76%),
+		0px 7px 0px 7px hsl(115, 80%, 40%);
+	cursor: pointer;
+	border-radius: 100px 30px 100px 30px;
+
+}
+
+#controls button p {
+	margin-top: 20px;
+	transform: rotate(-3deg);
+}
+
+#controls button:hover {
+	animation: .8s morph ease infinite;
+}
+
+#controls button:hover p {
+	animation: .8s rot ease infinite;
+}
+
+@keyframes morph {
+	0% {
+		border-radius: 100px 30px 100px 30px;
+	} 50% {
+		border-radius: 30px 100px 30px 100px;
+	} 100% {
+		border-radius: 100px 30px 100px 30px;
+	}
+}
+
+@keyframes rot {
+	0% {
+		transform: rotate(-3deg);
+	} 50% {
+		transform: rotate(3deg);
+	} 100% {
+		transform: rotate(-3deg);
+	}
+}
