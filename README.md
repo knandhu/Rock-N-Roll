@@ -1,3 +1,3 @@
 # Rock-N-Roll
 
-Live: https://knandhu.github.io/dist/
+Live: [Live Game](https://knandhu.github.io/dist/)
