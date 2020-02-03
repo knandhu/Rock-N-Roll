@@ -91,7 +91,7 @@ scoreText.style.width = 100;
 scoreText.style.height = 100;
 //scoreText.style.backgroundColor = "blue";
 scoreText.innerHTML = "0";
-scoreText.style.top = 295 + "px";
+scoreText.style.top = 340 + "px";
 scoreText.style.left = 25 + "%";
 // document.body.appendChild(scoreText);
 scoreBoard.appendChild(scoreText);
