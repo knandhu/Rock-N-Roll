@@ -1,6 +1,6 @@
 function win_logic(score, id) {
   if (score >= 100) {
-    return "winner";
+    return "Level 1 completed";
   }
 }
 
