@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(161, 186, 161);
+    /* background-color: rgb(161, 186, 161); */
 }
 
 #main{
@@ -7,9 +7,8 @@ body{
     width:auto;
 }
 
-
 #nav{
-    height:100px;
+    height:50px;
     width:750px;
     margin-left: 29%;
     margin-right: 22%;
@@ -21,12 +20,15 @@ body{
 }
 #nav #links{
     display: flex;
-    flex-direction: row;
+	flex-direction: row;
     position: relative; 
     top:95px;
 }
+
+#nav #links #linked{
+	margin-right: 10px;
+}
 #controls{
-    /* width:400px; */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -38,25 +40,26 @@ body{
     top:220px;
     left: 25%;
 }
+#controls #button{
+	margin-top: 15px;
+	flex-direction: column;
+}
 
 #controls #start, #controls #pause, #controls #reset {
-    position: relative;
-    top:50px;
 	text-align: center;
 	font-size: 17px;
 	font-family: 'Raleway', sans-serif;
 	color: hsl(222, 68%, 4%);
-	width: 60px;
-	height: 30px;
+	outline: none;
     margin-right: 15px;
 
-	border-radius: 10px;
+	border-radius: 10px; 
 
 	box-shadow: 
 		0px 0px 0px 7px hsl(115, 63%, 76%),
-		0px 7px 0px 7px hsl(115, 80%, 40%);
+		0px 7px 0px 7px hsl(115, 80%, 40%); 
 	cursor: pointer;
-	border-radius: 100px 30px 100px 30px;
+	border-radius: 100px 30px 100px 30px; 
 
 }
 
@@ -90,5 +93,5 @@ body{
 		transform: rotate(3deg);
 	} 100% {
 		transform: rotate(-3deg);
-	}
+	} 
 }
