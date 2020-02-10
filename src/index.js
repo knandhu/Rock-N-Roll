@@ -1,7 +1,4 @@
 import * as THREE from "three";
-import win_logic from './game_logic';
-// const PORT = process.env.PORT || 5000;
-// http.createServer(onRequest).listen(process.env.PORT || 6000);
 var worldRadius = 26;
 var pathAngleValues = [1.52, 1.57, 1.62];
 var treesPool = [];
@@ -70,7 +67,21 @@ addWorld();
 
 addExplosion();
 
-update();
+ var startGame = true;
+    var start = document.getElementById("start");
+  start.onclick = function startAnimation() {
+    if(startGame) {
+      update();
+    }
+  }
+
+var reset = document.getElementById("reset");
+reset.onclick = function resetAnimation() {
+  location.reload();
+  // update();
+  // alert("Game Paused!");
+}
+
 
 // window.addEventListener("resize", onWindowResize, false);
 
@@ -102,7 +113,7 @@ function addExplosion() {
     var vertex = new THREE.Vector3();
     particleGeometry.vertices.push(vertex);
   }
-  var pMaterial = new THREE.ParticleBasicMaterial({
+  var pMaterial = new THREE.PointsMaterial({
     color: 0xfffafa,
     size: 0.2
   });
@@ -127,7 +138,7 @@ function rock() {
   var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
   var sphereMaterial = new THREE.MeshStandardMaterial({
     color: 0xe5f2f2,
-    shading: THREE.FlatShading
+    flatShading: THREE.FlatShading
   });
   jumping = false;
   heroSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -170,7 +181,7 @@ function createTree() {
   var treeGeometry = new THREE.ConeGeometry(0.5, 1, sides, tiers);
   var treeMaterial = new THREE.MeshStandardMaterial({
     color: 0x33ff33,
-    shading: THREE.FlatShading
+    flatShading: THREE.FlatShading
   });
   var offset;
   midPointVector = treeGeometry.vertices[0].clone();
@@ -190,7 +201,7 @@ function createTree() {
   var treeTrunkGeometry = new THREE.CylinderGeometry(0.1, 0.1, 0.5);
   var trunkMaterial = new THREE.MeshStandardMaterial({
     color: 0x886633,
-    shading: THREE.FlatShading
+    flatShading: THREE.FlatShading
   });
   var treeTrunk = new THREE.Mesh(treeTrunkGeometry, trunkMaterial);
   treeTrunk.position.y = 0.25;
@@ -270,7 +281,7 @@ function addWorld() {
   var sphereGeometry = new THREE.SphereGeometry(worldRadius, sides, tiers);
   var sphereMaterial = new THREE.MeshStandardMaterial({
     color: 0xfffafa,
-    shading: THREE.FlatShading
+    flatShading: THREE.FlatShading
   });
 
   var vertexIndex;
@@ -398,15 +409,22 @@ function update() {
   //   }
   // }
    render();
-    if (score < 50) {
+    if (score <= 50) {
       GameId = requestAnimationFrame(update);
     } else {
       GameId = requestAnimationFrame(update);
       cancelAnimationFrame(GameId);
       alert("Congrats! Level 1 completed!");
     }
+  
+  // var pauseGame = true;
+  var pause = document.getElementById("pause");
+  pause.onclick = function pauseAnimation() {
+    GameId = requestAnimationFrame(update);
+    cancelAnimationFrame(GameId);
+    alert("Game Paused!");
+  }
 
-   //request next update
 }
 
 function doTreeLogic() {
@@ -464,7 +482,7 @@ function explode() {
     vertex.z = -0.2 + Math.random() * 0.4;
     particleGeometry.vertices[i] = vertex;
   }
-  explosionPower = 1.07;
+  explosionPower = 1.06;
   particles.visible = true;
 }
 
