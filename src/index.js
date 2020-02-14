@@ -66,14 +66,16 @@ var sphericalHelper = new THREE.Spherical();
 addWorld();
 
 addExplosion();
-
- var startGame = true;
-    var start = document.getElementById("start");
+document.addEventListener('DOMContentLoaded', ready);
+function ready() {
+  var startGame = true;
+  var start = document.getElementById("start");
   start.onclick = function startAnimation() {
     // if(startGame) {
-      update();
+    update();
     // }
   }
+}
 
 var reset = document.getElementById("reset");
 reset.onclick = function resetAnimation() {
