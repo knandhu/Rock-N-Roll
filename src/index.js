@@ -54,6 +54,7 @@ renderer.setSize(height * 0.9, width * 0.7);
 renderer.setClearColor(0xfffafa, 1);
 
 // getting DOM container
+document.addEventListener('DOMContentLoaded',()=> {});
 var dom = document.getElementById("canvas");
 var scoreBoard = document.getElementById("score");
 dom.appendChild(renderer.domElement);
@@ -67,7 +68,7 @@ addWorld();
 
 addExplosion();
 
-window.onload = function () {
+// window.onload = function () {
   var startGame = true;
   var start = document.getElementById("start");
   start.onclick = function startAnimation() {
@@ -75,7 +76,7 @@ window.onload = function () {
     update();
     // }
   }
-}
+// }
 
 var reset = document.getElementById("reset");
 reset.onclick = function resetAnimation() {
