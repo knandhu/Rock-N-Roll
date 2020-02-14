@@ -52,17 +52,21 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(height * 0.9, width * 0.7);
 renderer.setClearColor(0xfffafa, 1);
-function ready() {
-  var startGame = true;
+// function ready() {
+//   var startGame = true;
   var start = document.getElementById("start");
-  start.onclick = function startAnimation() {
-    // if(startGame) {
-    update();
-    // }
-  }
-}
+//   start.onclick = function startAnimation() {
+//     // if(startGame) {
+//     update();
+//     // }
+//   }
+// }
+
+start.addEventListener('click', () => {
+  update();
+})
 // getting DOM container
-document.addEventListener('DOMContentLoaded',ready);
+// document.addEventListener('DOMContentLoaded',ready);
 
   var dom = document.getElementById("canvas");
   var scoreBoard = document.getElementById("score");
