@@ -66,8 +66,8 @@ var sphericalHelper = new THREE.Spherical();
 addWorld();
 
 addExplosion();
-document.addEventListener('DOMContentLoaded', ready);
-function ready() {
+
+window.onload = function () {
   var startGame = true;
   var start = document.getElementById("start");
   start.onclick = function startAnimation() {
