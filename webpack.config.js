@@ -1,3 +1,6 @@
+var server_port = process.env.PORT || 4000;
+var server_host = "0.0.0.0";
+
 module.exports = {
   entry: "./src/index.js",
   module: {
@@ -18,6 +21,8 @@ module.exports = {
     filename: "bundle.js"
   },
   devServer: {
-    contentBase: "./dist"
+    contentBase: "./dist",
+    port: server_port,
+    host: server_host
   }
 };
