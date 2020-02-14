@@ -52,21 +52,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(height * 0.9, width * 0.7);
 renderer.setClearColor(0xfffafa, 1);
-// function ready() {
-//   var startGame = true;
-  var start = document.getElementById("start");
-//   start.onclick = function startAnimation() {
-//     // if(startGame) {
-//     update();
-//     // }
-//   }
-// }
 
-start.addEventListener('click', () => {
-  update();
-})
-// getting DOM container
-// document.addEventListener('DOMContentLoaded',ready);
 
   var dom = document.getElementById("canvas");
   var scoreBoard = document.getElementById("score");
@@ -81,9 +67,11 @@ addWorld();
 
 addExplosion();
 
-// window.onload = function () {
-
-// }
+var start = document.getElementById("start");
+start.addEventListener('click', () => {
+  console.log('clicked');
+  update();
+});
 
 var reset = document.getElementById("reset");
 reset.onclick = function resetAnimation() {
@@ -148,7 +136,6 @@ function rock() {
   var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
   var sphereMaterial = new THREE.MeshStandardMaterial({
     color: 0xe5f2f2,
-    // color: 0x7cfc00,
     flatShading: THREE.FlatShading
   });
   jumping = false;
