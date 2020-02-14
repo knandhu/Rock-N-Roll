@@ -63,15 +63,20 @@ sunLight();
 createTreesPool();
 
 var sphericalHelper = new THREE.Spherical();
-addWorld();
+// document.addEventListener('DOMContentLoaded', () => {
+//   console.log('loaded');
+  addWorld();
+  addExplosion();
+// })
 
-addExplosion();
 
 var start = document.getElementById("start");
 start.addEventListener('click', () => {
   console.log('clicked');
   update();
 });
+
+
 
 var reset = document.getElementById("reset");
 reset.onclick = function resetAnimation() {
@@ -523,3 +528,9 @@ function handleKeyDown(keyEvent) {
     bounceValue = 0.06;
   }
 }
+
+const PORT = process.env.PORT || 4000
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
+})
