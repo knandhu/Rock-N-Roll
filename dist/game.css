@@ -1,5 +1,9 @@
 body{
-    /* background-color: rgb(161, 186, 161); */
+	background-image: url(./newcloud.jpeg);
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+	background-size: cover;
 }
 
 #main{
@@ -94,4 +98,8 @@ body{
 	} 100% {
 		transform: rotate(-3deg);
 	} 
+}
+
+#links a{
+	color: inherit;
 }

@@ -70,9 +70,9 @@ addExplosion();
  var startGame = true;
     var start = document.getElementById("start");
   start.onclick = function startAnimation() {
-    if(startGame) {
+    // if(startGame) {
       update();
-    }
+    // }
   }
 
 var reset = document.getElementById("reset");
@@ -138,6 +138,7 @@ function rock() {
   var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
   var sphereMaterial = new THREE.MeshStandardMaterial({
     color: 0xe5f2f2,
+    // color: 0x7cfc00,
     flatShading: THREE.FlatShading
   });
   jumping = false;
