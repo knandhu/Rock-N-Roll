@@ -1,5 +1,5 @@
 var server_port = process.env.PORT || 4000;
-var server_host = "0.0.0.0";
+// var server_host = "0.0.0.0";
 
 module.exports = {
   entry: "./src/index.js",
@@ -23,6 +23,6 @@ module.exports = {
   devServer: {
     contentBase: "./dist",
     port: server_port,
-    host: server_host
+    // host: server_host
   }
 };
