@@ -53,10 +53,9 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(height * 0.9, width * 0.7);
 renderer.setClearColor(0xfffafa, 1);
 
-
-  var dom = document.getElementById("canvas");
-  var scoreBoard = document.getElementById("score");
-  dom.appendChild(renderer.domElement);
+var dom = document.getElementById("canvas");
+var scoreBoard = document.getElementById("score");
+dom.appendChild(renderer.domElement);
 
 rock();
 sunLight();
@@ -65,26 +64,22 @@ createTreesPool();
 var sphericalHelper = new THREE.Spherical();
 // document.addEventListener('DOMContentLoaded', () => {
 //   console.log('loaded');
-  addWorld();
-  addExplosion();
+addWorld();
+addExplosion();
 // })
 
-
 var start = document.getElementById("start");
-start.addEventListener('click', () => {
-  console.log('clicked');
+start.addEventListener("click", () => {
+  console.log("clicked");
   update();
 });
-
-
 
 var reset = document.getElementById("reset");
 reset.onclick = function resetAnimation() {
   location.reload();
   // update();
   // alert("Game Paused!");
-}
-
+};
 
 // window.addEventListener("resize", onWindowResize, false);
 
@@ -411,23 +406,22 @@ function update() {
   //        render();
   //   }
   // }
-   render();
-    if (score <= 50) {
-      GameId = requestAnimationFrame(update);
-    } else {
-      GameId = requestAnimationFrame(update);
-      cancelAnimationFrame(GameId);
-      alert("Congrats! Level 1 completed!");
-    }
-  
+  render();
+  if (score <= 50) {
+    GameId = requestAnimationFrame(update);
+  } else {
+    GameId = requestAnimationFrame(update);
+    cancelAnimationFrame(GameId);
+    alert("Congrats! Level 1 completed!");
+  }
+
   // var pauseGame = true;
   var pause = document.getElementById("pause");
   pause.onclick = function pauseAnimation() {
     GameId = requestAnimationFrame(update);
     cancelAnimationFrame(GameId);
     alert("Game Paused!");
-  }
-
+  };
 }
 
 function doTreeLogic() {
@@ -447,7 +441,7 @@ function doTreeLogic() {
         hasCollided = true;
         score += 1;
         // win_logic(score, GameId);
-        scoreText.innerHTML = (score.toString());
+        scoreText.innerHTML = score.toString();
         explode();
       }
     }
@@ -535,8 +529,19 @@ function handleKeyDown(keyEvent) {
 //   console.log(`Server listening on port ${PORT}`)
 // })
 
-var http = require('http');
-http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.send('it is running\n');
-}).listen(process.env.PORT || 5000);
+// var http = require('http');
+// http.createServer(function (req, res) {
+//   res.writeHead(200, { 'Content-Type': 'text/plain' });
+//   res.send('it is running\n');
+// }).listen(process.env.PORT || 5000);
+
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
+var router = require("./router");
+app.use("/viatges", router);
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log("up and running on port " + process.env.PORT);
+});
