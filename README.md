@@ -35,7 +35,7 @@ Controller to move the rock left/right makes the player to use and hit the trees
 
 # Future Enhancements
 
-* User able to start, pause the game
+* Implement more levels
 * User to select on the environment to play the game, mountain with rain, fog effects
 
 
