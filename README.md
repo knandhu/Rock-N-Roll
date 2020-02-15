@@ -24,7 +24,9 @@ Controller to move the rock left/right makes the player to use and hit the trees
 
 * 3D scene of a stage with sliding Rock, mountain environment with trees
 * User interaction to move the rock left, right and jump
-* Scoring system to complete the level, earn 5 points for hitting a tree.
+* Scoring system to complete the level, earn 50 points to complete level 1.
+
+ ![gamePlay](./readme/gamePlay.gif)
   
 # Technologies
 
