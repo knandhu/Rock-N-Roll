@@ -22,7 +22,6 @@ module.exports = {
   },
   devServer: {
     contentBase: "./dist",
-    compress: true,
     disableHostCheck: true,
     // port: server_port,
     // host: server_host
