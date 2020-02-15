@@ -23,7 +23,12 @@ module.exports = {
   devServer: {
     contentBase: "./dist",
     disableHostCheck: true,
-    // port: server_port,
-    // host: server_host
+    port: 5000,
+    proxy: {
+      '/api': 'http://localhost:5000'
+    }
+    allowedHosts: [
+      '.localhost.com'
+    ]
   }
 };
