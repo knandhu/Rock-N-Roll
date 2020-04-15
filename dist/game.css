@@ -1,0 +1,153 @@
+body{
+	background-image: url(./wall.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+	background-size: cover;
+}
+
+#main{
+    height:auto;
+    width:auto;
+}
+
+#nav{
+	height:50px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: fixed;
+    top:0px;
+}
+#nav #links{
+    display: flex;
+	flex-direction: row;
+    position: relative; 
+    top:95px;
+}
+
+#nav #links #linked{
+	margin-right: 10px;
+}
+#controls{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top:50px;
+}
+
+#canvas{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width:100%;
+	height:700px;
+	border-radius: 7px;
+    /* position: fixed;
+    top:220px;
+    left: 25%; */
+}
+#controls #button{
+	margin-top: 15px;
+	flex-direction: column;
+}
+
+#controls #start, #controls #pause, #controls #reset {
+	text-align: center;
+	font-size: 17px;
+	font-family: 'Raleway', sans-serif;
+	color: hsl(222, 68%, 4%);
+	outline: none;
+    margin-right: 15px;
+
+	border-radius: 10px; 
+
+	box-shadow: 
+		0px 0px 0px 7px hsl(115, 63%, 76%),
+		0px 7px 0px 7px hsl(115, 80%, 40%); 
+	cursor: pointer;
+	border-radius: 100px 30px 100px 30px; 
+
+}
+
+#controls button p {
+	margin-top: 20px;
+	transform: rotate(-3deg);
+}
+
+#controls button:hover {
+	animation: .8s morph ease infinite;
+}
+
+#controls button:hover p {
+	animation: .8s rot ease infinite;
+}
+
+@keyframes morph {
+	0% {
+		border-radius: 100px 30px 100px 30px;
+	} 50% {
+		border-radius: 30px 100px 30px 100px;
+	} 100% {
+		border-radius: 100px 30px 100px 30px;
+	}
+}
+
+@keyframes rot {
+	0% {
+		transform: rotate(-3deg);
+	} 50% {
+		transform: rotate(3deg);
+	} 100% {
+		transform: rotate(-3deg);
+	} 
+}
+
+#links a{
+	color: inherit;
+}
+
+#modal-content, #pauseMsg {
+  background-color: #fefefe;
+  margin: 18% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+#myModal, #mypauseModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#close,#pauseclose {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#close:hover,#pauseclose:hover,#pauseclose:focus,
+#close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
