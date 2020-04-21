@@ -17,14 +17,14 @@
 # Introduction
   
    Rock-N-Roll, is a 3D game with Rock moving on the mountainside with trees as obstacles. 
-Controller to move the rock left/right makes the player to use and hit the trees to earn points. It's an endless loop game and the point decides on the level completion.
+Controller to move the rock left/right makes the player to use and not to hit the trees to continue the game. It's an endless loop game and the collision detects the end of the game.
 
   
 # Features
 
 * 3D scene of a stage with sliding Rock, mountain environment with trees
 * User interaction to move the rock left, right and jump
-* Scoring system to complete the level, earn 50 points to complete level 1.
+* Game over logic based on collision of rock with tree.
 
  ![gamePlay](./readme/gamePlay.gif)
   
