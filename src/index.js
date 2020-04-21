@@ -55,8 +55,8 @@ function sound(src) {
   }
 }
 
-myMusic = new sound("gameMusic.mp3"); 
-collisionSound = new sound("collisionSound.mp3");
+myMusic = new sound("./gameMusic.mp3"); 
+collisionSound = new sound("./collisionSound.mp3");
 //camera
 var camera = new THREE.PerspectiveCamera(60, height / width, 0.1, 100000);
 
@@ -107,7 +107,7 @@ start.addEventListener("click", () => {
 var muted = false;
 var mute = document.getElementById("mute");
 mute.addEventListener("click", () => {
-  console.log("in mute",muted);
+  // console.log("in mute",muted);
   if (muted) {
     muted = false;
   } else {
