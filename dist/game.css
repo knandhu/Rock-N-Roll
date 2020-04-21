@@ -9,57 +9,59 @@ body{
 }
 
 #main{
-    height:auto;
-    width:auto;
+    height:700px;
+	width:100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 
-#nav{
-	height:50px;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    position: fixed;
-    top:0px;
+#heading{
+	margin: 0 auto;
+	height:3em;
+	width:100%;
+	position: sticky;
+	top:0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
-#nav #links{
+
+
+#controls #links{
+	display: flex;
+	width: 6%;
+	height: fit-content;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#controls .left{
+	line-height: 0.5;
+}
+
+
+#controls{
+	width:100%;
     display: flex;
 	flex-direction: row;
-    position: relative; 
-    top:95px;
-}
-
-#nav #links #linked{
-	margin-right: 10px;
-}
-#controls{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    top:50px;
+	justify-content: space-evenly;
 }
 
 #canvas{
 	display: flex;
+	/* display: none; */
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	position: fixed;
-	bottom: 0;
-	margin-left: auto;
-	margin-right: auto;
 	width:100%;
 	height:700px;
 	border-radius: 7px;
-    /* position: fixed;
-    top:220px;
-    left: 25%; */
-}
-#controls #button{
-	margin-top: 15px;
-	flex-direction: column;
+	/* position: relative;
+	top:200px; */
 }
 
 #controls #start, #controls #pause, #controls #reset {
@@ -69,15 +71,12 @@ body{
 	color: hsl(222, 68%, 4%);
 	outline: none;
     margin-right: 15px;
-
 	border-radius: 10px; 
-
 	box-shadow: 
 		0px 0px 0px 7px hsl(115, 63%, 76%),
 		0px 7px 0px 7px hsl(115, 80%, 40%); 
 	cursor: pointer;
 	border-radius: 100px 30px 100px 30px; 
-
 }
 
 #controls button p {
@@ -128,7 +127,7 @@ body{
 #myModal, #mypauseModal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1; /*Sit on top*/
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -150,4 +149,34 @@ body{
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#canvas-text{
+	/* position: relative;
+	right:40px; */
+	flex-direction: row;
+	height: fit-content;
+	/* align-items: flex-start;
+	justify-content: flex-start; */
+}
+
+#button{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#start{
+	margin-top: 25px;
+	/* margin-bottom: 50px; */
+	position: relative;
+	right:10%; 
+} 
+#ins p{
+	position: relative;
+	right:10%;
+}
+
+#score{
+	display: none;
 }

@@ -54,7 +54,7 @@ renderer.setSize(height * 0.9, width * 0.7);
 renderer.setClearColor(0xfffafa, 1);
 
 var dom = document.getElementById("canvas");
-var scoreBoard = document.getElementById("score");
+var scoreBoard = document.getElementById("scoreboard");
 dom.appendChild(renderer.domElement);
 
 rock();
@@ -67,22 +67,32 @@ var sphericalHelper = new THREE.Spherical();
 addWorld();
 addExplosion();
 // })
-
+var scoreReset = false;
 var start = document.getElementById("start");
 start.addEventListener("click", () => {
-  // console.log("clicked");
+  if (score != 0 && start.innerText == "Restart") {
+    console.log("inrestart", score);
+    scoreReset = true;
+    score = 0;
+
+    update();
+    // location.reload();
+    console.log("inrestart", score);
+
+  }
+  console.log("score", score);
   update();
 });
 
-var pauseModal = document.createElement("div");
-pauseModal.innerText = "Game Paused";
+// var pauseModal = document.createElement("div");
+// pauseModal.innerText = "Game Paused";
 
-var reset = document.getElementById("reset");
-reset.onclick = function resetAnimation() {
-  location.reload();
-  // update();
-  // alert("Game Paused!");
-};
+// var reset = document.getElementById("reset");
+// reset.onclick = function resetAnimation() {
+//   location.reload();
+//   // update();
+//   // alert("Game Paused!");
+// };
 
 // window.addEventListener("resize", onWindowResize, false);
 
@@ -95,16 +105,18 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
 }
 
+
+scoreText = document.getElementById("score");
 document.onkeydown = handleKeyDown;
-scoreText = document.createElement("div");
-scoreText.style.position = "fixed";
-scoreText.style.zIndex = 1; // if you still don't see the label, try uncommenting this
-scoreText.style.width = 100;
-scoreText.style.height = 100;
-scoreText.style.backgroundColor = "blue";
+// scoreText = document.createElement("div");
+// scoreText.style.position = "fixed";
+// scoreText.style.zIndex = 1; // if you still don't see the label, try uncommenting this
+// scoreText.style.width = 100;
+// scoreText.style.height = 100;
+// scoreText.style.backgroundColor = "blue";
 scoreText.innerHTML = "0";
-scoreText.style.top = 295 + "px";
-scoreText.style.left = 25 + "%";
+// scoreText.style.top = 295 + "px";
+// scoreText.style.left = 25 + "%";
 // document.body.appendChild(scoreText);
 scoreBoard.appendChild(scoreText);
 
@@ -408,11 +420,15 @@ function update() {
   // }
   render();
 
-  if (score <= 20) {
+  if (score == 0 ) {
     GameId = requestAnimationFrame(update);
   } else {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
+    // start.innerText = "Restart";
+    
+    // scoreText.innerHTML = score.toString();
+    // scoreText.innerHTML = score.toString();
     GameId = requestAnimationFrame(update);
     cancelAnimationFrame(GameId);
       
@@ -427,23 +443,23 @@ function update() {
     location.reload();
     
   }
-  var pauseclose = document.getElementById("pauseclose");
-  pauseclose.onclick = function () {
-    var modal = document.getElementById("mypauseModal");
-    modal.style.display = 'none';
-    // location.reload();
-  }
+  // var pauseclose = document.getElementById("pauseclose");
+  // pauseclose.onclick = function () {
+  //   var modal = document.getElementById("mypauseModal");
+  //   modal.style.display = 'none';
+  //   // location.reload();
+  // }
 
   // var pauseGame = true;
-  var pause = document.getElementById("pause");
-  pause.onclick = function pauseAnimation() {
-    GameId = requestAnimationFrame(update);
-    cancelAnimationFrame(GameId);
-    var pausemsg = document.getElementById("mypauseModal");
-    pausemsg.style.display = 'block';
+  // var pause = document.getElementById("pause");
+  // pause.onclick = function pauseAnimation() {
+  //   GameId = requestAnimationFrame(update);
+  //   cancelAnimationFrame(GameId);
+  //   var pausemsg = document.getElementById("mypauseModal");
+  //   pausemsg.style.display = 'block';
    
-    // alert("Game Paused!");
-  };
+  //   // alert("Game Paused!");
+  // };
 }
 
 function doTreeLogic() {
@@ -461,10 +477,13 @@ function doTreeLogic() {
       if (treePos.distanceTo(heroSphere.position) <= 0.6) {
         // console.log("hit");
         hasCollided = true;
-        score += 1;
+        score = -1;
+        // if (start.innerText == "Restart") {
+        //   scoreReset = false;
+        // }
         // win_logic(score, GameId);
         scoreText.innerHTML = score.toString();
-        explode();
+        // explode();
       }
     }
   });
