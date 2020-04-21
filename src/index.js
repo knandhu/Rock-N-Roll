@@ -34,8 +34,29 @@ var sceneHeight;
 var sceneWidth;
 var height = 1000;
 var width = 1000;
+var myMusic;
+var collisionSound;
 var scene = new THREE.Scene();
 
+
+
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function () {
+    this.sound.play();
+  }
+  this.stop = function () {
+    this.sound.pause();
+  }
+}
+
+myMusic = new sound("gameMusic.mp3"); 
+collisionSound = new sound("collisionSound.mp3");
 //camera
 var camera = new THREE.PerspectiveCamera(60, height / width, 0.1, 100000);
 
@@ -67,22 +88,37 @@ var sphericalHelper = new THREE.Spherical();
 addWorld();
 addExplosion();
 // })
-var scoreReset = false;
 var start = document.getElementById("start");
 start.addEventListener("click", () => {
   if (score != 0 && start.innerText == "Restart") {
-    console.log("inrestart", score);
-    scoreReset = true;
     score = 0;
 
     update();
     // location.reload();
-    console.log("inrestart", score);
 
   }
-  console.log("score", score);
+  if (muted) {
+    myMusic.stop();
+  } else {
+    myMusic.play();
+  }
   update();
 });
+var muted = false;
+var mute = document.getElementById("mute");
+mute.addEventListener("click", () => {
+  console.log("in mute",muted);
+  if (muted) {
+    muted = false;
+  } else {
+    muted = true;
+  }
+  // myMusic = new sound("gameMusic.mp3");
+  myMusic.stop();
+  collisionSound.stop();
+});
+
+
 
 // var pauseModal = document.createElement("div");
 // pauseModal.innerText = "Game Paused";
@@ -423,18 +459,22 @@ function update() {
   if (score == 0 ) {
     GameId = requestAnimationFrame(update);
   } else {
+
     var modal = document.getElementById("myModal");
+    if (muted) {
+      myMusic.stop();
+      collisionSound.stop();
+    } else {
+      myMusic.stop();
+      collisionSound.play();
+    }
     modal.style.display = "block";
     // start.innerText = "Restart";
-    
-    // scoreText.innerHTML = score.toString();
-    // scoreText.innerHTML = score.toString();
+
     GameId = requestAnimationFrame(update);
     cancelAnimationFrame(GameId);
       
       // update();
-      // alert("Game Paused!");
-    // alert("Congrats! Level 1 completed!");
   }
   var close = document.getElementById("close");
   close.onclick = function () {
