@@ -4,15 +4,17 @@ var pathAngleValues = [1.52, 1.57, 1.62];
 var treesPool = [];
 var rollingGroundSphere;
 var heroSphere;
-var rollingSpeed = 0.008;
+var rollingSpeed = 0.007;
 var heroRollingSpeed;
 var worldRadius = 26;
 var heroRadius = 0.2;
 var heroBaseY = 1.9;
 var bounceValue = 0.1;
 var gravity = 0.005;
+var leftmost = -2;
 var leftLane = -1;
 var rightLane = 1;
+var rightmost = 2;
 var middleLane = 0;
 var currentLane;
 var clock;
@@ -38,7 +40,21 @@ var myMusic;
 var collisionSound;
 var scene = new THREE.Scene();
 
-
+function soundBG(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.setAttribute("loop", "auto");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function () {
+    this.sound.play();
+  };
+  this.stop = function () {
+    this.sound.pause();
+  };
+}
 
 function sound(src) {
   this.sound = document.createElement("audio");
@@ -49,13 +65,14 @@ function sound(src) {
   document.body.appendChild(this.sound);
   this.play = function () {
     this.sound.play();
-  }
+  };
   this.stop = function () {
     this.sound.pause();
-  }
+  };
 }
 
-myMusic = new sound("./GameMusic.mp3"); 
+myMusic = new soundBG("./GameMusic.mp3");
+
 collisionSound = new sound("./collisionSound.mp3");
 //camera
 var camera = new THREE.PerspectiveCamera(60, height / width, 0.1, 100000);
@@ -76,7 +93,9 @@ renderer.setClearColor(0xfffafa, 1);
 
 var dom = document.getElementById("canvas");
 var scoreBoard = document.getElementById("scoreboard");
+
 dom.appendChild(renderer.domElement);
+// dom.appendChild(addWorld());
 
 rock();
 sunLight();
@@ -87,27 +106,32 @@ var sphericalHelper = new THREE.Spherical();
 //   console.log('loaded');
 addWorld();
 addExplosion();
+// update();
 // })
 var start = document.getElementById("start");
 start.addEventListener("click", () => {
-  if (score != 0 && start.innerText == "Restart") {
-    score = 0;
-
-    update();
-    // location.reload();
-
-  }
   if (muted) {
     myMusic.stop();
   } else {
     myMusic.play();
+    
   }
   update();
 });
+
+
+// var restart = document.getElementById("restart");
+// restart.addEventListener("click", () => {
+//   location.reload();
+// });
+
+
 var muted = false;
 var mute = document.getElementById("mute");
+
 mute.addEventListener("click", () => {
   // console.log("in mute",muted);
+  mute.innerText = "Music OFF"
   if (muted) {
     muted = false;
   } else {
@@ -117,8 +141,6 @@ mute.addEventListener("click", () => {
   myMusic.stop();
   collisionSound.stop();
 });
-
-
 
 // var pauseModal = document.createElement("div");
 // pauseModal.innerText = "Game Paused";
@@ -140,7 +162,6 @@ function onWindowResize() {
   camera.aspect = sceneWidth / sceneHeight;
   camera.updateProjectionMatrix();
 }
-
 
 scoreText = document.getElementById("score");
 document.onkeydown = handleKeyDown;
@@ -330,6 +351,7 @@ function addWorld() {
   var sphereGeometry = new THREE.SphereGeometry(worldRadius, sides, tiers);
   var sphereMaterial = new THREE.MeshStandardMaterial({
     color: 0xfffafa,
+    // color: 0xd6d9dc,
     flatShading: THREE.FlatShading,
   });
 
@@ -456,10 +478,9 @@ function update() {
   // }
   render();
 
-  if (score == 0 ) {
+  if (score == 0) {
     GameId = requestAnimationFrame(update);
   } else {
-
     var modal = document.getElementById("myModal");
     if (muted) {
       myMusic.stop();
@@ -473,16 +494,16 @@ function update() {
 
     GameId = requestAnimationFrame(update);
     cancelAnimationFrame(GameId);
-      
-      // update();
+
+    // update();
   }
   var close = document.getElementById("close");
   close.onclick = function () {
     var modal = document.getElementById("myModal");
-    modal.style.display = 'none';
+    modal.style.display = "none";
+    // score += 1;
     location.reload();
-    
-  }
+  };
   // var pauseclose = document.getElementById("pauseclose");
   // pauseclose.onclick = function () {
   //   var modal = document.getElementById("mypauseModal");
@@ -497,7 +518,7 @@ function update() {
   //   cancelAnimationFrame(GameId);
   //   var pausemsg = document.getElementById("mypauseModal");
   //   pausemsg.style.display = 'block';
-   
+
   //   // alert("Game Paused!");
   // };
 }
@@ -575,6 +596,10 @@ function handleKeyDown(keyEvent) {
     //left
     if (currentLane == middleLane) {
       currentLane = leftLane;
+    } else if (currentLane == leftLane) {
+      currentLane = leftmost;
+    } else if (currentLane == rightmost) {
+      currentLane = rightLane;
     } else if (currentLane == rightLane) {
       currentLane = middleLane;
     } else {
@@ -584,6 +609,10 @@ function handleKeyDown(keyEvent) {
     //right
     if (currentLane == middleLane) {
       currentLane = rightLane;
+    } else if (currentLane == rightLane) {
+      currentLane = rightmost;
+    } else if (currentLane == leftmost) {
+      currentLane = leftLane;
     } else if (currentLane == leftLane) {
       currentLane = middleLane;
     } else {
