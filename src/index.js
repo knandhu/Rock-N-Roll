@@ -4,7 +4,8 @@ var pathAngleValues = [1.52, 1.57, 1.62];
 var treesPool = [];
 var rollingGroundSphere;
 var heroSphere;
-var rollingSpeed = 0.007;
+// var rollingSpeed = 0.007;
+var rollingSpeed = 0.005;
 var heroRollingSpeed;
 var worldRadius = 26;
 var heroRadius = 0.2;
@@ -40,6 +41,8 @@ var myMusic;
 var collisionSound;
 var scene = new THREE.Scene();
 
+
+
 function soundBG(src) {
   this.sound = document.createElement("audio");
   this.sound.src = src;
@@ -71,6 +74,45 @@ function sound(src) {
   };
 }
 
+
+
+
+function startTimer(duration, display) {
+  var timer = duration, minutes, seconds;
+  var settime = setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = minutes + ":" + seconds;
+    --timer;
+    
+    if (timer == '-01') {
+     
+      cancelAnimationFrame(GameId);
+      var winner = document.getElementById('winModal');
+      winner.style.display = 'block';
+
+      clearInterval(settime);
+      myMusic.stop();
+     
+    }
+
+    // console.log(timer);
+  }, 1000);
+  var closeWin = document.getElementById("closeWin");
+  closeWin.onclick = function () {
+    var modal = document.getElementById("winModal");
+    modal.style.display = "none";
+    // score += 1;
+    location.reload();
+    myMusic.stop();
+  };
+}
+
+
 myMusic = new soundBG("./GameMusic.mp3");
 
 collisionSound = new sound("./collisionSound.mp3");
@@ -95,6 +137,7 @@ var dom = document.getElementById("canvas");
 var scoreBoard = document.getElementById("scoreboard");
 
 dom.appendChild(renderer.domElement);
+
 // dom.appendChild(addWorld());
 
 rock();
@@ -109,7 +152,16 @@ addExplosion();
 // update();
 // })
 var start = document.getElementById("start");
+var startPage = document.getElementById("startPage");
+var started = false;
 start.addEventListener("click", () => {
+  started = true;
+  var fiveMinutes = 60 * 1,
+    display = document.querySelector('#counter');
+  var timer = startTimer(fiveMinutes, display);
+  startPage.style.display = "none";
+
+
   if (muted) {
     myMusic.stop();
   } else {
@@ -120,39 +172,29 @@ start.addEventListener("click", () => {
 });
 
 
-// var restart = document.getElementById("restart");
-// restart.addEventListener("click", () => {
-//   location.reload();
-// });
 
-
-var muted = false;
+var muted;
 var mute = document.getElementById("mute");
+var off = document.getElementById("Off");
 
 mute.addEventListener("click", () => {
-  // console.log("in mute",muted);
-  mute.innerText = "Music OFF"
-  if (muted) {
-    muted = false;
-  } else {
-    muted = true;
-  }
-  // myMusic = new sound("gameMusic.mp3");
+
+  mute.style.display="none"
+  off.style.display = "block";
+  muted = true;
   myMusic.stop();
   collisionSound.stop();
 });
 
-// var pauseModal = document.createElement("div");
-// pauseModal.innerText = "Game Paused";
+off.addEventListener("click", () => {
+  muted = false;
+  mute.style.display = "block"
+  off.style.display = "none";
+  if (!muted && started) {
+    myMusic.play();
+  }
+});
 
-// var reset = document.getElementById("reset");
-// reset.onclick = function resetAnimation() {
-//   location.reload();
-//   // update();
-//   // alert("Game Paused!");
-// };
-
-// window.addEventListener("resize", onWindowResize, false);
 
 function onWindowResize() {
   //resize & align
@@ -205,6 +247,36 @@ function addPathTree() {
 
 //Rock
 function rock() {
+
+  // var objectGeom = new THREE.Geometry();
+  // objectGeom.scale(20, 20, 20)
+  // heroSphere = new THREE.Mesh(objectGeom, new THREE.MeshStandardMaterial({
+  //   bumpScale: 1,
+  //   color: new THREE.Color("skyblue"),
+  //   metalness: 0.3,
+  //   roughness: 0.5,
+  //   wireframe: true
+  // }));
+  // scene.add(object);
+
+  // var boundingBox = new THREE.Box3().setFromObject(heroSphere);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
   var sphereMaterial = new THREE.MeshStandardMaterial({
     color: 0xe5f2f2,
@@ -212,6 +284,9 @@ function rock() {
   });
   jumping = false;
   heroSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  setTimeout(function () {
+    // heroSphere.material.emissive.setRGB(198, 168, 118);
+  }, 100);
   heroSphere.receiveShadow = true;
   heroSphere.castShadow = true;
   scene.add(heroSphere);
@@ -228,7 +303,7 @@ function rock() {
 }
 
 //Fog environment
-scene.fog = new THREE.FogExp2(0xf0fff0, 0.14);
+// scene.fog = new THREE.FogExp2(0xf0fff0, 0.14);
 
 //environment Sunlight effect
 function sunLight() {
@@ -329,22 +404,6 @@ function tightenTree(vertices, sides, currentTier) {
   }
 }
 
-// // create an AudioListener and add it to the camera
-// var listener = new THREE.AudioListener();
-// camera.add( listener );
-
-// // create a global audio source
-// var sound = new THREE.Audio( listener );
-
-// // load a sound and set it as the Audio object's buffer
-// var audioLoader = new THREE.AudioLoader();
-// audioLoader.load("sounds/beltHandle1.ogg", function(buffer) {
-//   sound.setBuffer(buffer);
-//   sound.setLoop(true);
-//   sound.setVolume(0.5);
-//   sound.play();
-// });
-
 function addWorld() {
   var sides = 40;
   var tiers = 40;
@@ -397,7 +456,8 @@ function addWorld() {
 
 function addWorldTrees() {
   var numTrees = 36;
-  var gap = 6.28 / 36;
+  // var gap = 6.28 / 36;
+  var gap = 6.58 / 36;
   for (var i = 0; i < numTrees; i++) {
     addTree(false, i * gap, true);
     addTree(false, i * gap, false);
@@ -436,7 +496,7 @@ function addTree(inPath, row, isLeft) {
 }
 
 function createTreesPool() {
-  var maxTreesInPool = 10;
+  var maxTreesInPool = 5;
   var newTree;
   for (var i = 0; i < maxTreesInPool; i++) {
     newTree = createTree();
@@ -462,20 +522,11 @@ function update() {
   if (clock.getElapsedTime() > treeReleaseInterval) {
     clock.start();
     addPathTree();
-    // if (!hasCollided) {
-    //   score += 2 * treeReleaseInterval;
-    //   scoreText.innerHTML = score.toString();
-    // }
+
   }
   doTreeLogic();
   doExplosionLogic();
-  // var startGame = true;
-  //   var start = document.getElementById("start");
-  // start.onclick = function startAnimation() {
-  //   if(startGame) {
-  //        render();
-  //   }
-  // }
+
   render();
 
   if (score == 0) {
@@ -495,6 +546,8 @@ function update() {
     GameId = requestAnimationFrame(update);
     cancelAnimationFrame(GameId);
 
+    var timer = document.querySelector('#counter');
+    timer.style.display = "none";
     // update();
   }
   var close = document.getElementById("close");
@@ -504,23 +557,6 @@ function update() {
     // score += 1;
     location.reload();
   };
-  // var pauseclose = document.getElementById("pauseclose");
-  // pauseclose.onclick = function () {
-  //   var modal = document.getElementById("mypauseModal");
-  //   modal.style.display = 'none';
-  //   // location.reload();
-  // }
-
-  // var pauseGame = true;
-  // var pause = document.getElementById("pause");
-  // pause.onclick = function pauseAnimation() {
-  //   GameId = requestAnimationFrame(update);
-  //   cancelAnimationFrame(GameId);
-  //   var pausemsg = document.getElementById("mypauseModal");
-  //   pausemsg.style.display = 'block';
-
-  //   // alert("Game Paused!");
-  // };
 }
 
 function doTreeLogic() {
@@ -530,21 +566,17 @@ function doTreeLogic() {
   treesInPath.forEach(function (element, index) {
     oneTree = treesInPath[index];
     treePos.setFromMatrixPosition(oneTree.matrixWorld);
+    // console.log('treepos', treePos);
     if (treePos.z > 6 && oneTree.visible) {
       //gone out of our view zone
       treesToRemove.push(oneTree);
     } else {
-      //check collision
-      if (treePos.distanceTo(heroSphere.position) <= 0.6) {
-        // console.log("hit");
+      // treePos.y += 1.1;
+      if ((treePos.distanceTo(heroSphere.position) <= 0.3))
+      {
         hasCollided = true;
         score = -1;
-        // if (start.innerText == "Restart") {
-        //   scoreReset = false;
-        // }
-        // win_logic(score, GameId);
         scoreText.innerHTML = score.toString();
-        // explode();
       }
     }
   });
@@ -621,7 +653,8 @@ function handleKeyDown(keyEvent) {
   } else {
     if (keyEvent.keyCode === 38) {
       //up, jump
-      bounceValue = 0.1;
+      bounceValue = 0.12;
+      
       jumping = true;
     }
     validMove = false;
@@ -633,14 +666,4 @@ function handleKeyDown(keyEvent) {
   }
 }
 
-// const PORT = process.env.PORT || 4000
 
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`)
-// })
-
-// var http = require('http');
-// http.createServer(function (req, res) {
-//   res.writeHead(200, { 'Content-Type': 'text/plain' });
-//   res.send('it is running\n');
-// }).listen(process.env.PORT || 5000);
