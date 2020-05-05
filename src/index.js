@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+
 var worldRadius = 26;
 var pathAngleValues = [1.52, 1.57, 1.62];
 var treesPool = [];
@@ -41,8 +43,6 @@ var myMusic;
 var collisionSound;
 var scene = new THREE.Scene();
 
-
-
 function soundBG(src) {
   this.sound = document.createElement("audio");
   this.sound.src = src;
@@ -74,11 +74,10 @@ function sound(src) {
   };
 }
 
-
-
-
 function startTimer(duration, display) {
-  var timer = duration, minutes, seconds;
+  var timer = duration,
+    minutes,
+    seconds;
   var settime = setInterval(function () {
     minutes = parseInt(timer / 60, 10);
     seconds = parseInt(timer % 60, 10);
@@ -88,16 +87,14 @@ function startTimer(duration, display) {
 
     display.textContent = minutes + ":" + seconds;
     --timer;
-    
-    if (timer == '-01') {
-     
+
+    if (timer == "-01") {
       cancelAnimationFrame(GameId);
-      var winner = document.getElementById('winModal');
-      winner.style.display = 'block';
+      var winner = document.getElementById("winModal");
+      winner.style.display = "block";
 
       clearInterval(settime);
       myMusic.stop();
-     
     }
 
     // console.log(timer);
@@ -112,12 +109,12 @@ function startTimer(duration, display) {
   };
 }
 
-
 myMusic = new soundBG("./GameMusic.mp3");
 
 collisionSound = new sound("./collisionSound.mp3");
 //camera
 var camera = new THREE.PerspectiveCamera(60, height / width, 0.1, 100000);
+// var camera = new THREE.PerspectiveCamera(100, height / width, 0.1, 1000);
 
 clock = new THREE.Clock();
 clock.start();
@@ -141,6 +138,7 @@ dom.appendChild(renderer.domElement);
 // dom.appendChild(addWorld());
 
 rock();
+atv();
 sunLight();
 createTreesPool();
 
@@ -157,29 +155,24 @@ var started = false;
 start.addEventListener("click", () => {
   started = true;
   var fiveMinutes = 60 * 1,
-    display = document.querySelector('#counter');
+    display = document.querySelector("#counter");
   var timer = startTimer(fiveMinutes, display);
   startPage.style.display = "none";
-
 
   if (muted) {
     myMusic.stop();
   } else {
     myMusic.play();
-    
   }
   update();
 });
-
-
 
 var muted;
 var mute = document.getElementById("mute");
 var off = document.getElementById("Off");
 
 mute.addEventListener("click", () => {
-
-  mute.style.display="none"
+  mute.style.display = "none";
   off.style.display = "block";
   muted = true;
   myMusic.stop();
@@ -188,13 +181,12 @@ mute.addEventListener("click", () => {
 
 off.addEventListener("click", () => {
   muted = false;
-  mute.style.display = "block"
+  mute.style.display = "block";
   off.style.display = "none";
   if (!muted && started) {
     myMusic.play();
   }
 });
-
 
 function onWindowResize() {
   //resize & align
@@ -245,37 +237,51 @@ function addPathTree() {
   }
 }
 
+//ATV Model
+
+function atv() {
+  let playerMesh;
+  
+  var loader = new FBXLoader();
+  var TLoader = new THREE.TextureLoader();
+  var texture = TLoader.load("./models/car/source/ffc604b9.jpg");
+
+  playerMesh = loader.load(
+    "./models/car/source/ATV.FBX",
+    function (object) {
+      console.log('in atv');
+      playerMesh = object.children[0];
+      console.log("in callback", object);
+      playerMesh.receiveShadow = true;
+      playerMesh.castShadow = true;
+      playerMesh.geometry.computeBoundingSphere();
+      playerMesh.material.map = texture;
+      playerMesh.material.depthTest = false;
+      playerMesh.scale.multiplyScalar(0.09);
+      // heroSphere.scale.multiplyScalar(1);
+      // currentLane = middleLane;
+      // playerMesh.position.x = currentLane;
+      // playerMesh.position.set(currentLane, 0, 0);
+      heroSphere.rotation.set(1.708, 3.14159, 100);
+      // heroSphere.rotation.x -= heroRollingSpeed;
+      scene.add(playerMesh);
+    },
+    undefined,
+    function (e) {
+      console.error("An error", e);
+    }
+
+
+  );
+  currentLane = middleLane;
+  // playerMesh.position.set(currentLane, 0, 0);
+  // playerMesh.position.x = currentLane;
+  camera.position.z = 19;
+  camera.position.y = 2.5;
+  camera.position.x = 1;
+}
 //Rock
 function rock() {
-
-  // var objectGeom = new THREE.Geometry();
-  // objectGeom.scale(20, 20, 20)
-  // heroSphere = new THREE.Mesh(objectGeom, new THREE.MeshStandardMaterial({
-  //   bumpScale: 1,
-  //   color: new THREE.Color("skyblue"),
-  //   metalness: 0.3,
-  //   roughness: 0.5,
-  //   wireframe: true
-  // }));
-  // scene.add(object);
-
-  // var boundingBox = new THREE.Box3().setFromObject(heroSphere);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
   var sphereMaterial = new THREE.MeshStandardMaterial({
@@ -285,7 +291,7 @@ function rock() {
   jumping = false;
   heroSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
   setTimeout(function () {
-    // heroSphere.material.emissive.setRGB(198, 168, 118);
+    // heroSphere.material.emissive.setRGB(255, 0, 0);
   }, 100);
   heroSphere.receiveShadow = true;
   heroSphere.castShadow = true;
@@ -300,6 +306,7 @@ function rock() {
   camera.position.z = 7.5;
   camera.position.y = 2.5;
   camera.position.x = 0.5;
+  
 }
 
 //Fog environment
@@ -522,7 +529,6 @@ function update() {
   if (clock.getElapsedTime() > treeReleaseInterval) {
     clock.start();
     addPathTree();
-
   }
   doTreeLogic();
   doExplosionLogic();
@@ -546,7 +552,7 @@ function update() {
     GameId = requestAnimationFrame(update);
     cancelAnimationFrame(GameId);
 
-    var timer = document.querySelector('#counter');
+    var timer = document.querySelector("#counter");
     timer.style.display = "none";
     // update();
   }
@@ -572,8 +578,7 @@ function doTreeLogic() {
       treesToRemove.push(oneTree);
     } else {
       // treePos.y += 1.1;
-      if ((treePos.distanceTo(heroSphere.position) <= 0.3))
-      {
+      if (treePos.distanceTo(heroSphere.position) <= 0.4) {
         hasCollided = true;
         score = -1;
         scoreText.innerHTML = score.toString();
@@ -654,7 +659,7 @@ function handleKeyDown(keyEvent) {
     if (keyEvent.keyCode === 38) {
       //up, jump
       bounceValue = 0.12;
-      
+
       jumping = true;
     }
     validMove = false;
@@ -665,5 +670,3 @@ function handleKeyDown(keyEvent) {
     bounceValue = 0.06;
   }
 }
-
-

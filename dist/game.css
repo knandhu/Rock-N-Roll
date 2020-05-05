@@ -1,13 +1,15 @@
 body{
 	background-image: url(./wall.jpg);
-	background-repeat: no-repeat;
+	/* background-color: rgba(127, 238, 99, 0.2); */
+	/* background-image: url(./snow.jpg); */
+	/* background-repeat: no-repeat; */
 	/* background-size: cover; */
-	background-size: 0em;
+	/* background-size: contain; */
 	-webkit-background-size: cover;
   	-moz-background-size: cover;
   	-o-background-size: cover;
-	background-size: cover;
-	object-fit: cover;
+	/* background-size: cover; 
+	object-fit: fill; */
 }
 
 #main{

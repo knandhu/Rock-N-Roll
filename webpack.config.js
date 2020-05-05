@@ -20,6 +20,9 @@ module.exports = {
     publicPath: "/",
     filename: "bundle.js"
   },
+  // performance: {
+  //   hints: process.env.NODE_ENV === 'production' ? "warning" : false
+  // },
   devServer: {
     contentBase: "./dist",
     disableHostCheck: true,
