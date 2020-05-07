@@ -138,7 +138,7 @@ dom.appendChild(renderer.domElement);
 // dom.appendChild(addWorld());
 
 rock();
-atv();
+// atv();
 sunLight();
 createTreesPool();
 
