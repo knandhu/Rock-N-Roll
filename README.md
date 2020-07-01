@@ -15,7 +15,7 @@
 # Introduction
   
    Rock-N-Roll, is a 3D game with Rock moving on the mountainside with trees as obstacles. 
-Controller to move the rock left/right makes the player to use and not to hit the trees to continue the game. It's an endless loop game and the collision detects the end of the game.
+Controller to move the rock left/right makes the player to move the rock without hitting the trees to continue the game. It's an endless loop game and the player wins if they continue playing the game for a minute.
 
   
 # Features
@@ -73,6 +73,71 @@ function rock() {
   
 }
 ```
+
+## User Interaction Logic
+
+```javascript
+function handleKeyDown(keyEvent) {
+  if (jumping) return;
+  var validMove = true;
+  if (keyEvent.keyCode === 37) {
+    //left
+    if (currentLane == middleLane) {
+      currentLane = leftLane;
+    } else if (currentLane == leftLane) {
+      currentLane = leftmost;
+    } else if (currentLane == rightmost) {
+      currentLane = rightLane;
+    } else if (currentLane == rightLane) {
+      currentLane = middleLane;
+    } else {
+      validMove = false;
+    }
+  } else if (keyEvent.keyCode === 39) {
+    //right
+    if (currentLane == middleLane) {
+      currentLane = rightLane;
+    } else if (currentLane == rightLane) {
+      currentLane = rightmost;
+    } else if (currentLane == leftmost) {
+      currentLane = leftLane;
+    } else if (currentLane == leftLane) {
+      currentLane = middleLane;
+    } else {
+      validMove = false;
+    }
+  } else {
+    if (keyEvent.keyCode === 38) {
+      //up, jump
+      bounceValue = 0.12;
+
+      jumping = true;
+    }
+    validMove = false;
+  }
+  //heroSphere.position.x=currentLane;
+  if (validMove) {
+    jumping = true;
+    bounceValue = 0.06;
+  }
+}
+```
+
+## Game over Logic 
+
+```javascript
+  if (treePos.z > 6 && oneTree.visible) {
+      //gone out of our view zone
+      treesToRemove.push(oneTree);
+    } else {
+      if (treePos.distanceTo(heroSphere.position) <= 0.4) {
+        hasCollided = true;
+        score = -1;
+        scoreText.innerHTML = score.toString();
+      }
+    }
+```
+
 
   
 # Technologies
