@@ -29,7 +29,7 @@ Controller to move the rock left/right makes the player to use and not to hit th
  
 ## Adding trees
 
-```
+```javascript
 function addPathTree() {
   var options = [0, 1, 2];
   var lane = Math.floor(Math.random() * 3);
@@ -40,11 +40,11 @@ function addPathTree() {
     addTree(true, options[lane]);
   }
 }
-```javascript
+```
 
 ## To create HeroSphere
 
-```
+```javascript
 function rock() {
 
   var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
