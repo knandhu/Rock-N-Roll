@@ -26,7 +26,7 @@ Controller to move the rock left/right makes the player to use and not to hit th
 * User interaction to move the rock left, right and jump
 * Game over logic based on collision of rock with tree.
 
- ![gamePlay](./readme/rock_roll.jpg)
+ ![gamePlay](./readme/rock_roll.png)
   
 # Technologies
 
