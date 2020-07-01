@@ -20,14 +20,16 @@ Controller to move the rock left/right makes the player to move the rock without
   
 # Features
 
-* 3D scene of a stage with sliding Rock, mountain environment with trees
-* User interaction to move the rock left, right and jump
+* 3D scene of a stage with sliding Rock, mountain environment with trees.
+* User interaction to move the rock left, right and jump.
 * Game over logic based on collision of rock with tree.
 
 
  ![gamePlay](./readme/rock_roll.png)
  
 ## Adding trees
+
+* Trees will get added as we move onto the endless runner loop.
 
 ```javascript
 function addPathTree() {
@@ -43,6 +45,8 @@ function addPathTree() {
 ```
 
 ## To create HeroSphere
+
+* Rock, which is rolling on the mountain is created by using below logic and the camera and sphere has been fixed in mountain environment.
 
 ```javascript
 function rock() {
@@ -75,6 +79,8 @@ function rock() {
 ```
 
 ## User Interaction Logic
+
+* Users' interaction is handled by using the below logic.
 
 ```javascript
 function handleKeyDown(keyEvent) {
@@ -124,6 +130,8 @@ function handleKeyDown(keyEvent) {
 ```
 
 ## Game over Logic 
+
+* Whenever the rock hits tree will update the score and in turn using score to detect the end of the game.
 
 ```javascript
   if (treePos.z > 6 && oneTree.visible) {
